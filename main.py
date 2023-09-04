@@ -2,15 +2,17 @@ import requests
 import re
 from loguru import logger
 
-from faunadb import query as q
-from faunadb.client import FaunaClient
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
-client = FaunaClient(secret=os.getenv("FAUNA_KEY"))
-coll = client.query(q.collection("sub_sale"))
+token = os.getenv('TOKEN')
+instance = os.getenv('INSTANCE')
+headers = {
+ 'Authorization': 'Bearer ' + token,
+}
+
 
 pattern = re.compile("^Save \$\d\.\d{2} on Whole$")
 data = requests.get(
@@ -25,6 +27,16 @@ for item in data:
         logger.info(item["title"])
         chicken_tender = False
         if "Chicken Tender" in item["title"]:
-            chicken_tender = True
-        doc = client.query(q.create(coll, {'data': {'sub': item["title"], 'is_chicken_tender': chicken_tender}}))
+            message = f"YES!\n\n#Publix {item['title']} {item['priceLine']}"
+        else:
+            message = f"No!\n\n#Publix {item['title']} {item['priceLine']}"
+        json_data = {
+            'text': message,
+        }
+
+        response = requests.post('https://' + instance + '/api/notes/create', headers=headers, json=json_data)
+        response = response.json()
+        logger.debug(response["createdNote"]["id"])
+        logger.debug(response["createdNote"]["text"])
         break
+

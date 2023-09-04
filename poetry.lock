@@ -282,6 +282,18 @@ lint = ["pylint"]
 test = ["nose2", "nose2[coverage-plugin]"]
 
 [[package]]
+name = "firefish-py"
+version = "0.0.2"
+description = "A python wrapper for firefish/calckey"
+category = "main"
+optional = false
+python-versions = ">=3"
+files = [
+    {file = "firefish_py-0.0.2-py3-none-any.whl", hash = "sha256:27d7f994dedda459e9b32cd0afcc97f0de24dec2047544ab496c9f802ca48cdc"},
+    {file = "firefish_py-0.0.2.tar.gz", hash = "sha256:2ab29531c152f81645b9eeb7de63c7629ebf6f37e9ac16a6a19f7e0563752a1f"},
+]
+
+[[package]]
 name = "future"
 version = "0.18.3"
 description = "Clean single-source support for Python 3 and 2"
@@ -656,4 +668,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "09019409c1f33ac029e291574f697126bd1251da42db3a71edb09e0b8a2fdb01"
+content-hash = "3b250fe37893c412943d489a459bc06c2ce71b9e4dbf49d64b9d92ba6a091cb3"
