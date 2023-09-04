@@ -25,6 +25,11 @@ for item in data:
     if item["promoMsg"] is not None and pattern.match(item['promoMsg']):
         logger.debug("Sale Item Found")
         logger.info(item["title"])
+        with open("history.txt") as reader:
+            file = reader.read()
+        if item["title"] in file:
+            logger.info("Sale is same as last time we checked. Exiting.")
+            break
         chicken_tender = False
         if "Chicken Tender" in item["title"]:
             message = f"YES!\n\n#Publix {item['title']} {item['priceLine']}"
@@ -33,7 +38,8 @@ for item in data:
         json_data = {
             'text': message,
         }
-
+        with open("history.txt", 'w') as writer:
+            writer.write(item["title"])
         response = requests.post('https://' + instance + '/api/notes/create', headers=headers, json=json_data)
         response = response.json()
         logger.debug(response["createdNote"]["id"])
