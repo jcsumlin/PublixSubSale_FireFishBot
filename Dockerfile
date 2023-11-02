@@ -21,13 +21,13 @@ RUN poetry install --no-interaction --no-ansi
 RUN apt-get -y install cron
 
 # Copy hello-cron file to the cron.d directory
-COPY confile /etc/cron.d/confile
+COPY cronfile /etc/cron.d/cronfile
 
 # Give execution rights on the cron job
-RUN chmod 0644 /etc/cron.d/confile
+RUN chmod 0644 /etc/cron.d/cronfile
 
 # Apply cron job
-RUN crontab /etc/cron.d/confile
+RUN crontab /etc/cron.d/cronfile
 
 # Create the log file to be able to run tail
 RUN touch /var/log/cron.log
