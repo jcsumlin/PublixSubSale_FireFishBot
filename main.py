@@ -32,7 +32,8 @@ for item in data:
             break
         chicken_tender = False
         if "Chicken Tender" in item["title"]:
-            message = f"YES!\n\n#Publix {item['title']} {item['priceLine']}"
+            title = item["title"].replace("Publix", "")
+            message = f"YES!\n\n#Publix {title} {item['priceLine']}"
         else:
             message = f"No!\n\n#Publix {item['title']} {item['priceLine']}"
         json_data = {

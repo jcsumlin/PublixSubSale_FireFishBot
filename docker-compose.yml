@@ -5,6 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - TOKEN=value
+      - INSTANCE=url
     volumes:
       - .:/code
-    command: cron && tail -f /var/log/cron.log
+    command: python3 main.py

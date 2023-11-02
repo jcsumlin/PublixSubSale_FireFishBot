@@ -18,7 +18,7 @@ RUN poetry config virtualenvs.create false
 RUN poetry install --no-interaction --no-ansi
 
 
-RUN apt-get -y install cron
+RUN apt update && apt-get -y install cron
 
 # Copy hello-cron file to the cron.d directory
 COPY cronfile /etc/cron.d/cronfile
