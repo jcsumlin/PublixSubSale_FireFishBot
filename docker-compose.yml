@@ -1,0 +1,13 @@
+# Create basic python docker-compose file
+version: '3.7'
+services:
+  python:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: python -m http.server 8000
+    ports:
+      - 8000:8000
